@@ -6,6 +6,8 @@ on:
       - main
     tags: # Build image, push tags v0.X/prod, deploy to prod
       - "*"
+  release:
+    types: [published]
 
 jobs:
   detect-changes:
