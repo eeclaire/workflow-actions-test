@@ -22,6 +22,7 @@ jobs:
           # Set the GH_TOKEN environment variable for the gh CLI to use
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          echo ${{ github.event_name }}
           echo $(gh release list)
           echo "Hello world"
           
