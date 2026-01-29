@@ -4,8 +4,6 @@ on:
   push:
     branches: # Build image, push tags latest/stage, deploy to stage
       - main
-    tags: # Build image, push tags v0.X/prod, deploy to prod
-      - "*"
   release:
     types: [published]
 
@@ -25,6 +23,6 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo ${{ github.event_name }}
-          echo $(gh release list)
+          echo $(gh release list --limit 1 --exclude-drafts --exclude-pre-releases --json tagName | jq ".[0].tagName" )
           echo "Hello world"
           
