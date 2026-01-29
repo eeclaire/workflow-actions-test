@@ -1,0 +1,32 @@
+name: Stage deploy
+
+on:
+  push:
+    branches: # Build image, push tags latest/stage, deploy to stage
+      - main
+    tags: # Build image, push tags v0.X/prod, deploy to prod
+      - "*"
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+          fetch-depth: 0
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@caf0cab7a618c569241d31dcd442f54681755d39 # v3.2.4
+
+      - name: Install bough
+        run: uv tool install bough
+
+      - name: Detect affected packages
+        id: changes
+        run: |
+          echo "Hello world"
+          BASE_COMMIT="${{ github.event_name == 'pull_request' && 'origin/main' || 'HEAD~1' }}"
+          bough analyze --format text --base "$BASE_COMMIT" || true
+          
+          echo "${{BASE_COMMIT}}"
