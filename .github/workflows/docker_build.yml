@@ -23,6 +23,6 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo ${{ github.event_name }}
-          echo $(gh release list --limit 1 --exclude-drafts --exclude-pre-releases --json tagName | jq ".[0].tagName" )
+          echo $(gh release list --limit 2 --exclude-drafts --exclude-pre-releases --json tagName | jq ".[1].tagName" )
           echo "Hello world"
           
