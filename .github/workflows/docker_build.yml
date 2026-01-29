@@ -26,7 +26,3 @@ jobs:
         id: changes
         run: |
           echo "Hello world"
-          BASE_COMMIT="${{ github.event_name == 'pull_request' && 'origin/main' || 'HEAD~1' }}"
-          bough analyze --format text --base "$BASE_COMMIT" || true
-          
-          echo "${{BASE_COMMIT}}"
