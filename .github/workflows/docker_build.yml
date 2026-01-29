@@ -16,13 +16,9 @@ jobs:
           lfs: true
           fetch-depth: 0
 
-      - name: Setup uv
-        uses: astral-sh/setup-uv@caf0cab7a618c569241d31dcd442f54681755d39 # v3.2.4
-
-      - name: Install bough
-        run: uv tool install bough
-
-      - name: Detect affected packages
+      - name: Testing
         id: changes
         run: |
+          echo $(gh release list)
           echo "Hello world"
+          
